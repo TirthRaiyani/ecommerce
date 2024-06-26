@@ -62,7 +62,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
         const payload = {
             _id: user.id,
-            role: user.isAdmin === 'admin' ? 1 : 0 // Assuming role 1 is admin, 0 is regular user
+            role: user.isAdmin === 'admin' ? 1 : 0
         };
 
         const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
@@ -86,46 +86,4 @@ exports.loginUser = asyncHandler(async (req, res) => {
     }
 });
 
-// exports.loginUser = asyncHandler(async (req, res) => {
-//     try {
-//         const { userName, password } = req.body
 
-//         if (!(userName )) {
-//             res.json(new ApiError(400, null, "username is required"))
-
-//         }
-
-//         const user = await User.findOne({
-//             $or: [ { userName } ]
-//         })
-
-//         if (!user) {
-//             res.json(new ApiError(404, null, "User does not exist"))
-//         }
-
-//         const isPasswordValid = await user.isPasswordCorrect(password)
-
-//         if (!isPasswordValid) {
-//             res.json(new ApiError(401, [], "Invalid user credentials"))
-//         }
-
-//         const payload = {
-//             _id: user.id,
-//         }
-//         const SECRET_KEY = 'maybeimcursed'
-//         const accessToken = jwt.sign(payload, SECRET_KEY, {
-//             expiresIn: '1d'
-//         });
-
-//         const loggedInUser = await User.findByPk(user.id, {
-//             attributes: { exclude: [ 'password' ] }
-//         });
-
-//         return res.status(200).json({ Error: "false", statuscode: "200", message: "Logged In Successfully", data: loggedInUser, accessToken })
-
-//     }
-//     catch (error) {
-//         console.error("Error during login:", error);
-//         return res.status(500).json(new ApiError(500, "Server Error", "Something went wrong during login"));
-//     }
-// })
