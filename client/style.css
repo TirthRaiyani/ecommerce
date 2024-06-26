@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+#product-form {
+  margin-bottom: 20px;
+}
+
+#product-form input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+#product-list {
+  margin-top: 20px;
+}
+
+.product-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
