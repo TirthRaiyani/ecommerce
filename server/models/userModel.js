@@ -23,7 +23,7 @@ const User = sequelize.define('User', {
         defaultValue: 'user'
     }
 }, {
-    timestamps: true, // Enable timestamps
+    timestamps: true, 
     hooks: {
         beforeCreate: async (user) => {
             const salt = await bcrypt.genSalt(10);
