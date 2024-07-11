@@ -100,11 +100,10 @@ exports.getProductById = asyncHandler(async (req, res) => {
     try {
         const product = await Product.findByPk(id);
         
-        if (!product) {
-            
+        if (!product) {    
+           
             res.status(404).json({ error: 'Product not found' });
             
-
         } else {
             return res.status(200).json(new ApiResponse(200, product, 'Product retrieved successfully'));
         }

@@ -13,7 +13,7 @@ const validateRequest = (schema) => {
 const registerSchema = Joi.object({
     userName: Joi.string().required(),
     password: Joi.string().required().min(6),
-    isAdmin:Joi.required()
+    isAdmin:Joi.allow('',null)
 });
 const CP = Joi.object({
     name: Joi.string().required(),

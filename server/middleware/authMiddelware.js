@@ -21,7 +21,7 @@ const authenticate = async (req, res, next) => {
                 message: "Unauthorized"
             });
         }
-        if (decoded.role === 1) { // Assuming role 1 is admin
+        if (decoded.role === 1) { 
             req.user = await User.findOne({
                 where: { id: decoded._id, isAdmin: 'admin' },
                 raw: true,
