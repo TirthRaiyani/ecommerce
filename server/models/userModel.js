@@ -14,31 +14,21 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
         set(value) {
-            this.setDataValue('password', value.trim());
+            // Hash the password directly in the setter
+            const salt = bcrypt.genSaltSync(10);
+            this.setDataValue('password', bcrypt.hashSync(value.trim(), salt));
         }
     },
     isAdmin: {
-        type: DataTypes.ENUM,
-        values: [ 'admin', 'user' ],
+        type: DataTypes.ENUM('admin', 'user'),
         defaultValue: 'user'
     }
 }, {
-    timestamps: true, 
-    hooks: {
-        beforeCreate: async (user) => {
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(user.password, salt);
-        },
-        beforeUpdate: async (user) => {
-            if (user.changed('password')) {
-                const salt = await bcrypt.genSalt(10);
-                user.password = await bcrypt.hash(user.password, salt);
-            }
-        }
-    }
+    timestamps: true,
 });
 
-User.prototype.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password);
+User.prototype.isPasswordCorrect = function (password) {
+    return bcrypt.compareSync(password, this.password);
 };
+
 module.exports = User;
