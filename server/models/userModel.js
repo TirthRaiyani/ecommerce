@@ -14,7 +14,6 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
         set(value) {
-            // Hash the password directly in the setter
             const salt = bcrypt.genSaltSync(10);
             this.setDataValue('password', bcrypt.hashSync(value.trim(), salt));
         }
